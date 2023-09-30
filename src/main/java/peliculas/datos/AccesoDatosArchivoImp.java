@@ -88,6 +88,15 @@ public class AccesoDatosArchivoImp implements IAccesoDatos{
 
     @Override
     public void crearArchivo(String nombreRecurso) throws AccesoDatosEx {
+        File archivo = new File(nombreRecurso);
+        try {
+            PrintWriter bufferedWriter = new PrintWriter(new FileWriter(archivo));
+            bufferedWriter.close();
+            System.out.println("Archivo creado correctamente...");
+        } catch (IOException e) {
+            e.getStackTrace();
+            throw new AccesoDatosEx("Excepción al crear el archivo... "+e.getMessage() );
+        }
 
     }
 

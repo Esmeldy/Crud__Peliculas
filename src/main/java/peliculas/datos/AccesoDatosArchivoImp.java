@@ -5,7 +5,8 @@ import peliculas.excepciones.AccesoDatosEx;
 import peliculas.excepciones.EscrituraDatosEx;
 import peliculas.excepciones.LecturaDatosEx;
 
-import java.io.File;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccesoDatosArchivoImp implements IAccesoDatos{
@@ -17,7 +18,27 @@ public class AccesoDatosArchivoImp implements IAccesoDatos{
 
     @Override
     public List<Pelicula> listar(String nombreRecurso) throws LecturaDatosEx {
+        File archivo = new File(nombreRecurso);
+        List<Pelicula> peliculaList = new ArrayList<>();
 
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(archivo));
+            var linea = bufferedReader.readLine();
+
+            while (linea != null){
+                peliculaList.add(new Pelicula(linea));
+
+                linea = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.getStackTrace();
+            throw new LecturaDatosEx("Error al acceder al archivo... "+e.getMessage());
+        } catch (IOException e) {
+            e.getStackTrace();
+            throw new LecturaDatosEx("Excepción al intentar acceder al archivo... "+e.getMessage());
+        }
+        return peliculaList;
     }
 
     @Override

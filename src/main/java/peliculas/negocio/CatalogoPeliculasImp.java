@@ -54,8 +54,20 @@ public class CatalogoPeliculasImp implements ICatalogoPeliculas{
         }
     }
 
+    /**
+     * Inicia un catálogo de películas.
+     * Es decir un nuevo archivo de películas.
+     */
     @Override
     public void iniciarCatalogoPeliculas() {
+        try {
+            if (accesoDatos.existe(NOMBRE_RECURSO)){
+                accesoDatos.borrarArchivo(NOMBRE_RECURSO);
+            }
 
+            accesoDatos.crearArchivo(NOMBRE_RECURSO);
+        } catch (AccesoDatosEx e) {
+            System.out.println("Excepción al crear catálogo de películas... "+e.getMessage());
+        }
     }
 }

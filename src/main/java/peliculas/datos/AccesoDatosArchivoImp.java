@@ -60,7 +60,30 @@ public class AccesoDatosArchivoImp implements IAccesoDatos{
 
     @Override
     public String buscar(String nombreRecurso, String buscar) throws LecturaDatosEx {
-        return null;
+        File archivo = new File(nombreRecurso);
+        String resultado = null;
+        int index = 1;
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(archivo));
+            var linea = bufferedReader.readLine();
+            
+            while (linea != null){
+                if (buscar.equalsIgnoreCase(linea)){
+                    resultado = "Película "+linea+" encontrada en la línea "+index;
+                }
+                linea = bufferedReader.readLine();
+                index++;
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.getStackTrace();
+            throw new LecturaDatosEx("Execpción al leer el archivo... "+e.getMessage());
+        } catch (IOException e) {
+            e.getStackTrace();
+            throw new LecturaDatosEx("Execpción al leer el archivo... "+e.getMessage());
+        }
+        return resultado;
     }
 
     @Override

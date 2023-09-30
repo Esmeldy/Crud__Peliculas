@@ -102,6 +102,10 @@ public class AccesoDatosArchivoImp implements IAccesoDatos{
 
     @Override
     public void borrarArchivo(String nombreRecurso) throws AccesoDatosEx {
+        File archivo = new File(nombreRecurso);
+        if (archivo.exists())
+            archivo.delete();
 
+        System.out.println("Archivo borrado correctamente...");
     }
 }

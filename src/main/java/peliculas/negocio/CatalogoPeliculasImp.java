@@ -37,6 +37,7 @@ public class CatalogoPeliculasImp implements ICatalogoPeliculas{
             var peliculas = accesoDatos.listar(NOMBRE_RECURSO);
             if (peliculas != null){
                 peliculas.forEach(System.out::println);
+                System.out.println();
             }
         } catch (AccesoDatosEx e) {
             System.out.println("Excepción al listar las películas..." + e.getStackTrace());
